@@ -1,9 +1,22 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
     "noImplicitAny": true,
-    "target": "ES5",
-    "module": "ES2015",
-    "jsx": "react",
-    "allowSyntheticDefaultImports": true
-  }
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "target": "ES6",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src/**/*", "src/**/*.json"],
+  "exclude": ["node_modules", "dist"]
 }
