@@ -4,6 +4,9 @@ import { HamburgerIcon, LogoIcon } from 'assets/icons';
 import colors from 'themes/colors';
 import { debounce } from 'utils';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'store/types';
+import { device } from 'themes/devices';
+import { setToken } from 'store/userSlice';
 
 const HeaderContainer = styled.header`
   background-color: ${colors.black};
@@ -22,8 +25,15 @@ const LinkText = styled(Link)`
   font-size: 16px;
   padding-left: 24px;
   text-decoration: none;
+  padding-left: 40px;
+  padding-top: 48px;
   &:hover {
     opacity: 0.5;
+  }
+
+  @media ${device.tablet} {
+    padding-top: 0px;
+    padding-left: 40px;
   }
 `;
 
@@ -51,25 +61,16 @@ const Menu = styled.nav`
   transition: transform 0.3s ease-in-out;
 `;
 
-const LinkColumnText = styled(Link)`
-  padding-top: 48px;
-  color: ${colors.white};
-  font-size: 16px;
-  padding-left: 40px;
-  text-decoration: none;
-  &:hover {
-    opacity: 0.5;
-  }
-`;
-
 const Header = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [open, setOpen] = useState(false);
 
+  const { token } = useAppSelector(store => store.user);
+
   useEffect(() => {
     const handleResize = debounce(() => {
       setIsMobile(window.innerWidth < 768);
-    }, 500);
+    }, 0);
 
     window.addEventListener('resize', handleResize);
 
@@ -77,6 +78,41 @@ const Header = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const dispatch = useAppDispatch();
+
+  const logOut = () => dispatch(setToken(null));
+
+  const onMobileClick = isMobile ? () => setOpen(false) : undefined;
+
+  const navList = token ? (
+    <>
+      <LinkText to="/" onClick={onMobileClick}>
+        Main
+      </LinkText>
+      <LinkText to="server-list" onClick={onMobileClick}>
+        Servers
+      </LinkText>
+      <LinkText
+        to="login"
+        onClick={() => {
+          onMobileClick?.();
+          logOut();
+        }}
+      >
+        Logout
+      </LinkText>
+    </>
+  ) : (
+    <>
+      <LinkText to="/" onClick={onMobileClick}>
+        Main
+      </LinkText>
+      <LinkText to="login" onClick={onMobileClick}>
+        Login
+      </LinkText>
+    </>
+  );
 
   return (
     <HeaderContainer>
@@ -88,17 +124,9 @@ const Header = () => {
           <HamburgerIcon />
         </IconContainer>
       ) : (
-        <LinkList>
-          <LinkText to="server-list">Main</LinkText>
-          <LinkText to="login">Login</LinkText>
-        </LinkList>
+        <LinkList>{navList}</LinkList>
       )}
-      {isMobile && (
-        <Menu open={open}>
-          <LinkColumnText to="server-list">Main</LinkColumnText>
-          <LinkColumnText to="login">Login</LinkColumnText>
-        </Menu>
-      )}
+      {isMobile && <Menu open={open}>{navList}</Menu>}
     </HeaderContainer>
   );
 };

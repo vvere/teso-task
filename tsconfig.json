@@ -20,9 +20,11 @@
     "baseUrl": ".",
     "paths": {
       "*": ["src/*"],
+      "api/*": ["./src/api/*"],
       "assets/*": ["./src/assets/*"],
       "components/*": ["./src/components/*"],
       "routes/*": ["./src/routes/*"],
+      "store/*": ["./src/store/*"],
       "themes/*": ["./src/themes/*"],
       "utils/*": ["./src/utils/*"]
     }

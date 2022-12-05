@@ -32,9 +32,11 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     alias: {
+      api: path.resolve(__dirname, 'src/api/'),
       assets: path.resolve(__dirname, 'src/assets/'),
       components: path.resolve(__dirname, 'src/components/'),
       routes: path.resolve(__dirname, 'src/routes/'),
+      store: path.resolve(__dirname, 'src/store/'),
       themes: path.resolve(__dirname, 'src/themes/'),
       utils: path.resolve(__dirname, 'src/utils/'),
     },

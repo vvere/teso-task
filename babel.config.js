@@ -9,9 +9,11 @@ module.exports = {
         root: ['./src'],
         extensions: ['.js', '.ts', '.tsx', '.json'],
         alias: {
+          api: './src/api',
           assets: './src/assets',
           components: './src/components',
           routes: './src/routes',
+          store: './src/store',
           themes: './src/themes',
           utils: './src/utils',
         },

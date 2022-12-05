@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { Home, Login, ServerList } from 'components/pages';
+import ProtectedRoute from 'routes/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'server-list',
-        element: <ServerList />,
+        element: (
+          <ProtectedRoute>
+            <ServerList />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
