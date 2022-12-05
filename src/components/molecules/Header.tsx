@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { HamburgerIcon, LogoIcon } from 'assets/icons';
 import colors from 'themes/colors';
 import { debounce } from 'utils';
+import { Link } from 'react-router-dom';
 
 const HeaderContainer = styled.header`
   background-color: ${colors.black};
@@ -16,10 +17,14 @@ const LinkList = styled.nav`
   padding-right: 16px;
 `;
 
-const LinkText = styled.div`
+const LinkText = styled(Link)`
   color: ${colors.white};
   font-size: 16px;
   padding-left: 24px;
+  text-decoration: none;
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 const IconContainer = styled.div`
@@ -35,7 +40,6 @@ const LogoContainer = styled.div`
 const Menu = styled.nav`
   display: flex;
   flex-direction: column;
-  //   justify-content: center;
   background-color: ${colors.black};
   transform: ${({ open }: { open: boolean }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
   height: 100vh;
@@ -47,11 +51,15 @@ const Menu = styled.nav`
   transition: transform 0.3s ease-in-out;
 `;
 
-const LinkColumnText = styled.div`
+const LinkColumnText = styled(Link)`
   padding-top: 48px;
   color: ${colors.white};
   font-size: 16px;
   padding-left: 40px;
+  text-decoration: none;
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 const Header = () => {
@@ -81,14 +89,14 @@ const Header = () => {
         </IconContainer>
       ) : (
         <LinkList>
-          <LinkText>Main</LinkText>
-          <LinkText>Login</LinkText>
+          <LinkText to="server-list">Main</LinkText>
+          <LinkText to="login">Login</LinkText>
         </LinkList>
       )}
       {isMobile && (
         <Menu open={open}>
-          <LinkColumnText>Main</LinkColumnText>
-          <LinkColumnText>Login</LinkColumnText>
+          <LinkColumnText to="server-list">Main</LinkColumnText>
+          <LinkColumnText to="login">Login</LinkColumnText>
         </Menu>
       )}
     </HeaderContainer>

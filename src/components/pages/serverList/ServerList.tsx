@@ -8,7 +8,7 @@ const data = [
   { id: 5, server: 'Zul', distance: '1' },
 ];
 
-const ServerListPage = () => {
+const ServerList = () => {
   return (
     <DataTable>
       <DataTable.Header>
@@ -25,4 +25,4 @@ const ServerListPage = () => {
   );
 };
 
-export default ServerListPage;
+export default ServerList;
