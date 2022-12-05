@@ -18,3 +18,41 @@ export const getUserToken = async ({ username, password }: UserCredentials) =>
       },
     }
   );
+
+const instance = axios.create({
+  baseURL: BASE_URL,
+  timeout: 1000,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  },
+});
+
+instance.interceptors.request.use(
+  config => {
+    config.headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    return config;
+  },
+  error => {
+    Promise.reject(error);
+  }
+);
+
+instance.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    if (error.response.status === 401) {
+      localStorage.removeItem('token');
+    }
+    return error;
+  }
+);
+
+export const fetchServerList = async () => await instance.get('servers');

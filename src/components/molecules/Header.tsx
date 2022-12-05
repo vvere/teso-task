@@ -27,6 +27,7 @@ const LinkText = styled(Link)`
   text-decoration: none;
   padding-left: 40px;
   padding-top: 48px;
+  font-family: Roboto;
   &:hover {
     opacity: 0.5;
   }

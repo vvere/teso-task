@@ -1,4 +1,4 @@
-import { Button, InputError } from 'components/atoms';
+import { ActivityIndicator, Button, InputError } from 'components/atoms';
 import { TextInput } from 'components/molecules';
 import styled from 'styled-components';
 import colors from 'themes/colors';
@@ -82,7 +82,7 @@ const Login = () => {
         error={errors.password ? errorMessage : null}
       />
       {error && <InputError>{error}</InputError>}
-      <Button>{!loading ? 'Login' : 'Loading...'}</Button>
+      {loading ? <ActivityIndicator /> : <Button>Login</Button>}
     </FormContainer>
   );
 };

@@ -1,24 +1,41 @@
-import { DataTable } from '../../molecules';
-
-const data = [
-  { id: 1, server: 'Lul', distance: '132' },
-  { id: 2, server: 'Cul', distance: '32' },
-  { id: 3, server: 'Aul', distance: '232' },
-  { id: 4, server: 'Wul', distance: '2' },
-  { id: 5, server: 'Zul', distance: '1' },
-];
+import { useEffect } from 'react';
+import { DataTable } from 'components/molecules';
+import { fetchServerList } from 'api';
+import { useAppDispatch, useAppSelector } from 'store/types';
+import { setError, setLoading, setServers } from 'store/serverSlice';
+import { ActivityIndicator } from 'components/atoms';
+import colors from 'themes/colors';
 
 const ServerList = () => {
+  const { servers, error, loading } = useAppSelector(state => state.server);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setLoading(true));
+    fetchServerList()
+      .then(({ data }) => {
+        dispatch(setError(null));
+        dispatch(setServers(data));
+      })
+      .catch(err => dispatch(setError(err?.message || 'Request failed')))
+      .finally(() => dispatch(setLoading(false)));
+  }, []);
+
+  console.log({ error, loading });
+
   return (
     <DataTable>
       <DataTable.Header>
         <DataTable.Title title="Servers" />
         <DataTable.Title title="Distance" />
       </DataTable.Header>
-      {data.map(({ distance, id, server }) => (
-        <DataTable.Row key={id}>
-          <DataTable.Item text={server} />
-          <DataTable.Item text={`${distance}`} />
+      {loading && <ActivityIndicator />}
+      {error && <DataTable.Item color={colors.red} text={error} />}
+      {servers.map(({ distance, name }) => (
+        <DataTable.Row key={name}>
+          <DataTable.Item text={name} />
+          <DataTable.Item text={distance} />
         </DataTable.Row>
       ))}
     </DataTable>

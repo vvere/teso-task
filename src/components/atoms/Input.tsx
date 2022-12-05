@@ -11,6 +11,7 @@ const Input = styled.input`
   margin-bottom: 8px;
   margin-top: 8px;
   font-size: 16px;
+  font-family: Roboto;
   font-weight: 500;
   &:focus {
     border-color: ${colors.purple};

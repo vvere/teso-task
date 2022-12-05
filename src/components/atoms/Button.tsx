@@ -14,6 +14,7 @@ const Button = styled.button`
   cursor: pointer;
   display: flex;
   align-self: center;
+  font-family: Roboto;
   &:hover {
     opacity: 0.9;
   }
