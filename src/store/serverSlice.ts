@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-type Servers = { name: string; distance: number }[];
+export type Servers = { name: string; distance: number }[];
 
 type Loading = boolean;
 

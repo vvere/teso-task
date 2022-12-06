@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from 'store/types';
 import { setError, setLoading, setServers } from 'store/serverSlice';
 import { ActivityIndicator } from 'components/atoms';
 import colors from 'themes/colors';
+import { sortData } from 'utils';
 
 const ServerList = () => {
   const { servers, error, loading } = useAppSelector(state => state.server);
@@ -12,24 +13,14 @@ const ServerList = () => {
 
   const dispatch = useAppDispatch();
 
-  const sortData = (type: 'distance' | 'name') => {
+  const handleSortData = (type: 'distance' | 'name') => {
     const isSame = type === sortedBy.sortedBy;
 
     const order = isSame ? (sortedBy.order === 'desc' ? 'asc' : 'desc') : 'asc';
 
-    if (order === 'asc') {
-      const sortedArray = [...servers].sort((a, b) =>
-        type === 'distance' ? a.distance - b.distance : a.name.localeCompare(b.name)
-      );
+    const sortedData = sortData(servers, type, order);
 
-      dispatch(setServers(sortedArray));
-    } else {
-      const reversSortedArray = [...servers].sort((a, b) =>
-        type === 'distance' ? b.distance - a.distance : b.name.localeCompare(a.name)
-      );
-
-      dispatch(setServers(reversSortedArray));
-    }
+    dispatch(setServers(sortedData));
 
     setSorted({ sortedBy: type, order });
   };
@@ -48,8 +39,8 @@ const ServerList = () => {
   return (
     <DataTable>
       <DataTable.Header>
-        <DataTable.Title title="Servers" onClick={() => sortData('name')} />
-        <DataTable.Title title="Distance" onClick={() => sortData('distance')} />
+        <DataTable.Title title="Servers" onClick={() => handleSortData('name')} />
+        <DataTable.Title title="Distance" onClick={() => handleSortData('distance')} />
       </DataTable.Header>
       {loading && <ActivityIndicator />}
       {error && <DataTable.Item color={colors.red} text={error} />}

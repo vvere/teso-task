@@ -19,7 +19,7 @@ test.describe('App links works', () => {
     await expect(page).toHaveURL(/.*login/);
   });
 
-  test('login and server-list link works', async ({ page }) => {
+  test('login and server-list link work', async ({ page }) => {
     await page.goto('http://localhost:3000/login');
     await page.getByPlaceholder('User name').fill('tesonet');
     await page.getByPlaceholder('Password').fill('partyanimal');
