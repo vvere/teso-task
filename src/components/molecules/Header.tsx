@@ -60,6 +60,7 @@ const Menu = styled.nav`
   top: 0;
   left: 0;
   transition: transform 0.3s ease-in-out;
+  z-index: 50;
 `;
 
 const Header = () => {
