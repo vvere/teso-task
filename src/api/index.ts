@@ -51,7 +51,7 @@ instance.interceptors.response.use(
     if (error.response.status === 401) {
       localStorage.removeItem('token');
     }
-    return error;
+    return Promise.reject(error);
   }
 );
 
