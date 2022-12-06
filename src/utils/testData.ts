@@ -1,4 +1,4 @@
-export const notSortedData = [
+export const NOT_SORTED_DATA = [
   {
     name: 'Latvia #94',
     distance: 728,
@@ -17,7 +17,7 @@ export const notSortedData = [
   },
 ];
 
-export const sortedByDistanceAsc = [
+export const SORTED_BY_DISTANCE_ASC = [
   {
     name: 'United States #80',
     distance: 223,
@@ -36,7 +36,7 @@ export const sortedByDistanceAsc = [
   },
 ];
 
-export const sortedByDistanceDesc = [
+export const SORTED_BY_DISTANCE_DESC = [
   {
     name: 'Lithuania #51',
     distance: 1970,
